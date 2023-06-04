@@ -6,7 +6,9 @@ import android.content.Intent
 import android.provider.Settings
 import android.util.Log
 import android.view.accessibility.AccessibilityManager
-import com.neeraj.assignment.MyAccessibilityService
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import com.neeraj.assignment.R
 
 object AppUtils {
 
@@ -27,5 +29,12 @@ object AppUtils {
         val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         context.startActivity(intent)
+    }
+
+    fun replaceFragment(activity: FragmentActivity?, fragment: Fragment, from: String) {
+        activity?.let {
+            it.supportFragmentManager.beginTransaction().replace(R.id.main_container, fragment).addToBackStack(from)
+                .commitAllowingStateLoss()
+        }
     }
 }
