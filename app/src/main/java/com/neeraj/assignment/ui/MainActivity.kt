@@ -1,10 +1,16 @@
 package com.neeraj.assignment.ui
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.neeraj.assignment.R
 import com.neeraj.assignment.databinding.ActivityMainBinding
@@ -42,7 +48,25 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         lifecycleScope.launch {
             isAccessibilityPermissionGranted = AppUtils.isEnabled(this@MainActivity)
+            checkNotificationPermission()
             invalidateOptionsMenu()
+        }
+    }
+
+
+    private val requestPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+        Log.i(TAG,"requestPermission() granted: $it")
+    }
+
+    private fun checkNotificationPermission() {
+        Log.i(TAG, "checkNotificationPermission() version: ${Build.VERSION.SDK_INT}")
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2 || !isAccessibilityPermissionGranted) {
+            Log.e(TAG,"checkNotificationPermission() serviceAccess $isAccessibilityPermissionGranted")
+            return
+        }
+        val result = ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+        if (result != PackageManager.PERMISSION_GRANTED) {
+            requestPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 
@@ -82,5 +106,9 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    companion object {
+        private const val TAG = "MainActivity"
     }
 }
