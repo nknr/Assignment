@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.accessibility.AccessibilityManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.add
 import com.neeraj.assignment.R
 
 object AppUtils {
@@ -32,9 +33,7 @@ object AppUtils {
     }
 
     fun replaceFragment(activity: FragmentActivity?, fragment: Fragment, from: String) {
-        activity?.let {
-            it.supportFragmentManager.beginTransaction().replace(R.id.main_container, fragment).addToBackStack(from)
-                .commitAllowingStateLoss()
-        }
+        activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_container, fragment)?.addToBackStack(from)
+            ?.commitAllowingStateLoss()
     }
 }

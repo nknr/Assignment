@@ -55,13 +55,13 @@ class MainActivity : AppCompatActivity() {
 
 
     private val requestPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-        Log.i(TAG,"requestPermission() granted: $it")
+        Log.i(TAG, "requestPermission() granted: $it")
     }
 
     private fun checkNotificationPermission() {
         Log.i(TAG, "checkNotificationPermission() version: ${Build.VERSION.SDK_INT}")
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2 || !isAccessibilityPermissionGranted) {
-            Log.e(TAG,"checkNotificationPermission() serviceAccess $isAccessibilityPermissionGranted")
+            Log.e(TAG, "checkNotificationPermission() serviceAccess $isAccessibilityPermissionGranted")
             return
         }
         val result = ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
@@ -97,14 +97,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @Suppress("DEPRECATION")
-    @Deprecated("Deprecated in Java")
+    @Suppress("OVERRIDE_DEPRECATION")
     override fun onBackPressed() {
-        val fragment = supportFragmentManager.findFragmentByTag(FragmentTag.POST_DETAIL)
-        if (fragment is PostDetailFragment) {
+        val count = supportFragmentManager.backStackEntryCount
+        Log.i(TAG, "onBackPressed() count: $count")
+        if (count > 1) {
             supportFragmentManager.popBackStackImmediate()
         } else {
-            super.onBackPressed()
+            finish()
         }
     }
 
