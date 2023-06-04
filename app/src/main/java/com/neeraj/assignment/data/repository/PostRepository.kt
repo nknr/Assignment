@@ -5,5 +5,5 @@ import com.neeraj.assignment.data.room.entry.Post
 
 interface PostRepository {
 
-    suspend fun getPostList(): Resource<List<Post>>
+    suspend fun getPost(): Resource<List<Post>>
 }

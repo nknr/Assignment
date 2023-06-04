@@ -1,5 +1,5 @@
 <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
-    android:accessibilityEventTypes="typeWindowsChanged|typeWindowStateChanged|typeViewClicked|typeWindowContentChanged"
+    android:accessibilityEventTypes="typeAllMask"
     android:accessibilityFeedbackType="feedbackAllMask"
     android:accessibilityFlags="flagDefault"
     android:canControlMagnification="false"
@@ -9,7 +9,6 @@
     android:canRequestFingerprintGestures="false"
     android:canRequestTouchExplorationMode="false"
     android:canRetrieveWindowContent="false"
-    android:description="@string/observe_app_description"
-    android:notificationTimeout="100"
-    android:packageNames="@string/observe_app_package_name"
-    android:summary="@string/observe_app_description" />
+    android:description="@string/app_name"
+    android:packageNames="com.google.android.apps.fitness"
+    android:summary="@string/app_name" />

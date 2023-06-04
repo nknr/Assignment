@@ -3,6 +3,4 @@
     <string name="enable_accessibility">Enable accessibility</string>
     <string name="post">Post</string>
     <string name="post_detail">Post Detail</string>
-    <string name="observe_app_description">WhatsApp app observe</string>
-    <string name="observe_app_package_name">com.whatsapp</string>
 </resources>
